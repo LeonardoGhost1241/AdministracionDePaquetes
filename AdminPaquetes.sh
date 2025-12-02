@@ -12,7 +12,7 @@ echo "Seleccione su gestor de paquete "
 nameP="PAQUETE"
 
 
-dpkg(){
+dpkgF(){
 	clear	
 	opt=("Instalar paquete" "Obtener informacion de un paquete" "Lista de paquetes instalados en el sistema" "Obtener lista de un archivo instalado por un paquete" "eliminar paquete (conserva sus archivos)" "eliminar paquete (elimina tambien sus archivos)" "Encontrar origen de un archivo especifico" "Reconfigurar un paquete" "regresar")
 
@@ -49,7 +49,7 @@ dpkg(){
 }
 
 
-apt(){
+aptF(){
 	PS3="APT> "
 
 	opc=("Instalar un paquete" "eliminar un paquete (conservar sus archivos)" "Eliminar un paquete (Eliminar tambien sus archivos)" "Actualizar uno o mas paquetes" "Arreglar dependencias rotas" "Comando apt-cache" "Comando apt-file")
@@ -100,15 +100,108 @@ aptFile(){
 }
 
 
-rpm(){
+rpmF(){
+	clear
 	PS3="rpm> "
 
-	opt=("")
+	opt=("Instalar un paquete" "Actualizar un paquete instalado" "Solo actualizar un paquete SI ya esta instalado" "eliminar un paquete" "Listar todos los paquetes instalados" "Obtener informacion de un paquete instalado" "Obtener lista de los archivos dentro de un paquete " "Mostrar paquete que posee un archivo especifico" "Regresar")
 
-	select
+	select option in "${opt[@]}"; do
+		case $REPLY in
+			1) echo "rpm -i $nameP" ;; 
+			2) echo "rpm -U $nameP" ;;
+			3) echo  "rpm -F $nameP" ;;
+			4) echo "rpm -evh $nameP" ;; ## Se utiliza v en modo verbose y h para ver el progreso con "#"
+			5) echo  "rpm -qa" ;;
+			6) echo  "rpm -qi $nameP" ;;
+			7) echo  "rpm -ql $nameP" ;; # podemos agregar -p para consultar de un paquete que NO esta instalado
+			8) echo "rpm -qf FILENAME" ;;
+			9) 	Menu 
+				return ;;
+			*) default ;;
+		esac	
+	done
+}
+
+
+yumF(){
+	PS3="yum> "
+
+	opt=("Instalar un paquete" "Eliminar un paquete" "Verificar si hay actualizaciones disponibles" "Actualizar un paquete" "Actualizar todo el sistema" "Buscar un paquete" "Saber de que paquete proviene un archivo" "Informacion de un paquete" "Ver lista de repositorios disponibles " "Limpier cache" "Regresar")
+
+	select option in "${opt[@]}"; do 
+		case $REPLY in
+			1) echo "yum install $nameP" ;;
+			2) echo "yum remove $nameP" ;;
+			3) echo "yum check-update" ;;
+			4) echo "yum update $nameP" ;;
+			5) echo "yum update" ;;
+			6) echo "yum search PATTERN" ;;
+			7) echo "yum whatprovides FILENAME" ;;
+			8) echo "yum info $nameP" ;;
+			9) echo "yum repolist all" ;;
+			10) echo "yum clean" ;;
+			11) Menu ; return ;;
+			*) default ;;
+		esac
+	done
+}
+
+
+
+
+dnfF(){
+	clear
+	PS3="dnf> "
+
+	opt=("Instalar un paquete" "Eliminar un paquete" "Buscar paquetes" "Obtener informacion de un paquete" "Actualizar todos los paquetes" "Actualizar un paquete en especifico" "Encontrar que paquete proporciona un archivo especifico" "Listar todos los paquetes instalados en el sistema" "Regresr")
+
+	select option in "${opt[@]}"; do
+		case $REPLY in
+			1) echo "dnf install $nameP" ;;
+			2) echo "dnf remove $nameP" ;;
+			3) echo "dnf search PATTERN" ;;
+			4) echo "dnf info $nameP" ;;
+			5) echo "dnf upgrade" ;;
+			6) echo "dnf upgrade $nameP" ;;
+			7) echo "dnf provides FILENAME" ;;
+			8) echo "dnf list --installed" ;;
+			9) 	Menu 
+				return ;;
+			*) default ;;
+		esac
+	done
+}
+
+
+zypperF(){
+	clear
+	PS3="zypper> "
+
+	opt=("Instalar un paquete" "Eliminar un paquete" "Actualizar un paquete" "Ver metadatos de un paquete" "Actualizar lista de repositorios" "Listar las actualizaciones disponibles para el sistema" "Buscar un paquete" "Regresar")
+
+
+	select option in "${opt[@]}"; do
+		case $REPLY in
+
+			1) echo "zypper install $nameP" ;; ##Puedes simplificar la sentencia "install" por "in" 
+			2) echo "zypper remove $nameP"  ;; ##Puedes simplificar la sentencia "remove" por "rm"
+			3) echo "zypper update $nameP" ;;
+			4) echo "zypper info $nameP" ;;
+			5) echo "zypper refresh " ;;
+			6) echo "zypper list-updates" ;;
+			7) echo "zypper search $nameP" ;; ##Puedes simplificar la sentencia "search" por "se"
+			8) 	Menu 
+				return ;;
+			*)  default ;;
+		esac
+	done
+
 
 
 }
+
+
 
 
 
@@ -140,23 +233,27 @@ while true; do
 	       case $paquete in
 			DPKG)	  
 			       echo "dpkg"
-			       dpkg
+			       dpkgF
 			       ;;
 			APT)
 				echo "apt"
-				apt
+				aptF
 				;;
 			RPM)	
 				echo "rpm"
+				rpmF
 				;;
 			YUM)
-				echo "rpm"
+				echo "yum"
+				yumF
 				;;
 			DNF)
 				echo "dnf"
+				dnfF
 				;;
 			ZYPPER)
 				echo "zypper"
+				zypperF
 				;;
 			salir)
 				echo "Saliendo..."
