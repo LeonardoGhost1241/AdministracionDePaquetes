@@ -122,6 +122,26 @@
 
 
 
+# Resumen de Gestores de Paquetes en Linux
+
+| Gestor | Tipo | Base de datos / Directorios clave | Config principal | Repositorios | Distribuciones que lo usan | Nota clave |
+|--------|------|-----------------------------------|------------------|--------------|-----------------------------|------------|
+| **RPM** | Bajo nivel | `/var/lib/rpm` | `/etc/rpm/` | — | RHEL, CentOS, Rocky Linux, AlmaLinux, Fedora, openSUSE, SUSE Linux Enterprise | No resuelve dependencias |
+| **YUM** | Alto nivel | Usa RPM | `/etc/yum.conf` | `/etc/yum.repos.d/` | RHEL 7, CentOS 7, Oracle Linux | Obsoleto en sistemas modernos |
+| **DNF** | Alto nivel | Usa RPM | `/etc/dnf/dnf.conf` | `/etc/yum.repos.d/` | RHEL 8+, CentOS Stream, Fedora, Rocky 8+, AlmaLinux 8+ | Reemplazo moderno de YUM |
+| **Zypper** | Alto nivel | `/var/lib/zypp/` | `/etc/zypp/zypp.conf` | `/etc/zypp/repos.d/` | openSUSE Leap, openSUSE Tumbleweed, SUSE Linux Enterprise (SLES) | Soporte para snapshots con Btrfs |
+| **DPKG** | Bajo nivel | `/var/lib/dpkg/` | `/etc/dpkg/dpkg.cfg` | — | Debian, Ubuntu, Linux Mint, KDE Neon, MX Linux, Pop!_OS | Base del sistema .deb |
+| **APT** | Alto nivel | Usa DPKG | `/etc/apt/apt.conf` | `/etc/apt/sources.list` y `/etc/apt/sources.list.d/` | Debian, Ubuntu, Linux Mint, Kali, Raspbian, Pop!_OS | Resuelve dependencias automáticamente |
+
+
+
+
+
+
+
+
+
+
 
 
 
