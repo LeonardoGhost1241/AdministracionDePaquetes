@@ -134,8 +134,140 @@
 | **APT** | Alto nivel | Usa DPKG | `/etc/apt/apt.conf` | `/etc/apt/sources.list` y `/etc/apt/sources.list.d/` | Debian, Ubuntu, Linux Mint, Kali, Raspbian, Pop!_OS | Resuelve dependencias automáticamente |
 
 
+# Comandos 
+## rpm
+- Trabaja con archivos .rpm
+
+intalar
+   rpm -i paquete.rpm 
+
+Actualizar (instala si no existe)
+   rpm -U paquete.rpm
+
+Actualiza SOLO si ya esta instalado 
+   rpm -F paquete.rpm
+
+Instalar con progreso y detalle 
+   rpm -ivh paquete.rpm
+
+Eliminar
+   rpm -e paquete.rpm
+
+Listar todos los paquetes instalados 
+   rpm -qa 
+
+Informacion de un paquete instalado 
+   rpm -qi nombre
+
+Listar archivos de un paquete instalado
+   rpm -ql nombre
+
+Informacion de un .rpm SIN instalar
+   rpm -qip archivo.rpm 
+
+Saber que paquete instalao un archivo
+   rpm -qf /ruta/archivo 
 
 
+## YUM
+Es usado por:
+- Red had
+- CentOS
+- Oracle
+
+Buscar paquete 
+   yum search palabra
+
+Instalar
+   yum install paquete
+
+Actualizar uno
+   yum update paquete 
+
+Actualizar todos
+   yum upgrade paquete
+
+Actualizar todo
+   yum update ---------------
+
+Ver actualizaciones disposibles
+   yum check-updates
+
+Eliminar
+   yum remove paquete
+
+Saber que paquete provee un archivo
+   yum whatprovides archivo 
+
+Informacion de paquete   
+   yum info paquete
+
+Ubicaciones:
+- /etc/yum.repos.d/
+Para listar los repos usaremos: yum repolist all
+
+Habilitar un repo 
+   yum-config-manager --enable repoID
+
+Deshabilitar un repo 
+   yum-config-manager --disable repoID
+
+Limpiar cache
+   yum clean packages
+   yum clean metadata
+
+## DNF 
+Usado en:
+- Fedora
+
+Es un remplazo moderno de yum 
+
+Buscar 
+   dnf search paquete 
+
+Instalar
+   dnf install paquete
+
+Eliminar
+   dnf remove paquete
+
+Actualizar
+   dnf upgrade
+
+Que paquete provee un archivo
+   dnf provides archivo
+
+Listar instalados
+   dnf list --installed 
+
+## Zypper (SUSE/openSUSE)
+Usado en:
+- openSUSE
+- SUSE
+
+Actualizar repos
+   zypper refresh 
+
+Buscar
+   zypper se (o puede ser search) paquete
+
+Instalar
+   zypper in paquete
+   zypper install paquete
+
+Eliminar 
+   zypper rm paquete
+
+Actualizar el sistema
+   zypper update 
+
+Ver que paquete provee archivo
+   zypper search --provides archivo
+
+   
+
+
+   
 
 
 
